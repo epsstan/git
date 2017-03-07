@@ -1063,6 +1063,9 @@ struct active_request_slot *get_active_slot(void)
 	curl_easy_setopt(slot->curl, CURLOPT_FAILONERROR, 1);
 	curl_easy_setopt(slot->curl, CURLOPT_RANGE, NULL);
 
+        if (getenv("GIT_CURL_INTERFACE"))
+            curl_easy_setopt(slot->curl, CURLOPT_INTERFACE, getenv("GIT_CURL_INTERFACE"));
+
 	/*
 	 * Default following to off unless "ALWAYS" is configured; this gives
 	 * callers a sane starting point, and they can tweak for individual
